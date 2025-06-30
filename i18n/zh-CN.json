@@ -1,0 +1,107 @@
+{
+  "site": {
+    "title": "Mr.Nie - 个人主页",
+    "description": "Mr.Nie的个人主页，展示技术博客、开源项目和个人作品"
+  },
+  "nav": {
+    "home": "首页",
+    "blog": "博客",
+    "portfolio": "作品集",
+    "contact": "联系"
+  },
+  "hero": {
+    "title": "欢迎来到我的数字世界",
+    "subtitle": "探索技术、分享知识、创造价值",
+    "explore": "开始探索",
+    "contact": "联系我"
+  },
+  "cards": {
+    "title": "我的世界",
+    "blog": {
+      "title": "技术博客",
+      "description": "分享技术心得与编程经验",
+      "back": {
+        "title": "最新文章",
+        "item1": "前端性能优化实践",
+        "item2": "JavaScript设计模式",
+        "item3": "CSS Grid布局详解",
+        "link": "查看更多"
+      }
+    },
+    "opensource": {
+      "title": "开源项目",
+      "description": "贡献开源社区，分享代码智慧",
+      "back": {
+        "title": "热门项目",
+        "item1": "七洛商城系统",
+        "item2": "七洛音乐平台",
+        "item3": "个人博客",
+        "link": "访问GitHub"
+      }
+    },
+    "portfolio": {
+      "title": "作品展示",
+      "description": "精选项目作品与设计案例",
+      "back": {
+        "title": "精选作品",
+        "item1": "七洛商城系统",
+        "item2": "七洛音乐平台",
+        "item3": "技术博客",
+        "link": "查看更多"
+      }
+    },
+    "tools": {
+      "title": "实用工具",
+      "description": "开发工具与在线小应用",
+      "back": {
+        "title": "工具集合",
+        "item1": "代码格式化",
+        "item2": "颜色选择器",
+        "item3": "JSON解析器",
+        "link": "使用工具"
+      }
+    },
+    "learning": {
+      "title": "学习笔记",
+      "description": "技术学习路径与知识总结",
+      "back": {
+        "title": "学习内容",
+        "item1": "算法与数据结构",
+        "item2": "系统设计",
+        "item3": "新技术探索",
+        "link": "查看笔记"
+      }
+    },
+    "about": {
+      "title": "关于我",
+      "description": "个人介绍与联系方式",
+      "back": {
+        "title": "联系方式",
+        "item1": "邮箱联系",
+        "item2": "社交媒体",
+        "item3": "在线简历",
+        "link": "联系我"
+      }
+    }
+  },
+  "footer": {
+    "uptime": "运行时间",
+    "visitors": "访问量",
+    "rights": "保留所有权利"
+  },
+  "loading": {
+    "text": "加载中..."
+  },
+  "modal": {
+    "contact": {
+      "title": "联系方式",
+      "social_links": "社交链接",
+      "github": "GitHub",
+      "gitee": "Gitee",
+      "csdn": "CSDN博客",
+      "blog": "个人博客",
+      "email": "发送邮件",
+      "close": "关闭"
+    }
+  }
+}

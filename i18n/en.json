@@ -1,0 +1,107 @@
+{
+  "site": {
+    "title": "Mr.Nie - Personal Homepage",
+    "description": "Mr.Nie's personal homepage showcasing tech blogs, open source projects and personal works"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "portfolio": "Portfolio",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Welcome to My Digital World",
+    "subtitle": "Explore Technology, Share Knowledge, Create Value",
+    "explore": "Start Exploring",
+    "contact": "Contact Me"
+  },
+  "cards": {
+    "title": "My World",
+    "blog": {
+      "title": "Tech Blog",
+      "description": "Share technical insights and programming experience",
+      "back": {
+        "title": "Latest Articles",
+        "item1": "Frontend Performance Optimization",
+        "item2": "JavaScript Design Patterns",
+        "item3": "CSS Grid Layout Guide",
+        "link": "View More"
+      }
+    },
+    "opensource": {
+      "title": "Open Source",
+      "description": "Contributing to open source community, sharing code wisdom",
+      "back": {
+        "title": "Popular Projects",
+        "item1": "Qiluo Mall System",
+        "item2": "Qiluo Music Platform",
+        "item3": "Personal Blog",
+        "link": "Visit GitHub"
+      }
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "description": "Selected project works and design cases",
+      "back": {
+        "title": "Featured Works",
+        "item1": "Qiluo Mall System",
+        "item2": "Qiluo Music Platform",
+        "item3": "Tech Blog",
+        "link": "View More"
+      }
+    },
+    "tools": {
+      "title": "Useful Tools",
+      "description": "Development tools and online mini applications",
+      "back": {
+        "title": "Tool Collection",
+        "item1": "Code Formatter",
+        "item2": "Color Picker",
+        "item3": "JSON Parser",
+        "link": "Use Tools"
+      }
+    },
+    "learning": {
+      "title": "Learning Notes",
+      "description": "Technical learning paths and knowledge summaries",
+      "back": {
+        "title": "Learning Content",
+        "item1": "Algorithms & Data Structures",
+        "item2": "System Design",
+        "item3": "New Technology Exploration",
+        "link": "View Notes"
+      }
+    },
+    "about": {
+      "title": "About Me",
+      "description": "Personal introduction and contact information",
+      "back": {
+        "title": "Contact Info",
+        "item1": "Email Contact",
+        "item2": "Social Media",
+        "item3": "Online Resume",
+        "link": "Contact Me"
+      }
+    }
+  },
+  "footer": {
+    "uptime": "Uptime",
+    "visitors": "Visitors",
+    "rights": "All rights reserved"
+  },
+  "loading": {
+    "text": "Loading..."
+  },
+  "modal": {
+    "contact": {
+      "title": "Contact Information",
+      "social_links": "Social Links",
+      "github": "GitHub",
+      "gitee": "Gitee",
+      "csdn": "CSDN Blog",
+      "blog": "Personal Blog",
+      "email": "Send Email",
+      "close": "Close"
+    }
+  }
+}

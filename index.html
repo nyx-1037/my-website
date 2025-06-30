@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Mr.Nie">
+    <title data-i18n-key="site.title">Mr.Nie - 个人主页</title>
+    <meta name="description" data-i18n-key="site.description" content="Mr.Nie的个人主页，展示技术博客、开源项目和个人作品">
+    <meta name="keywords" content="Mr.Nie, 个人主页, 技术博客, 开源项目, 前端开发, 七洛商城, 七洛音乐">
+    <meta name="author" content="Mr.Nie">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nyx-1037.github.io">
+    <meta property="og:title" content="Mr.Nie - 个人主页">
+    <meta property="og:description" content="Mr.Nie的个人主页，展示技术博客、开源项目和个人作品">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://nyx-1037.github.io">
+    <meta property="twitter:title" content="Mr.Nie - 个人主页">
+    <meta property="twitter:description" content="Mr.Nie的个人主页，展示技术博客、开源项目和个人作品">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="i18n/zh-CN.json" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="i18n/en.json" as="fetch" crossorigin="anonymous">
+</head>
+<body>
+    <!-- 图片预览遮罩 -->
+    <div class="image-overlay"></div>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <h1>Mr.Nie</h1>
+                </div>
+                
+                <!-- Navigation -->
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li><a href="#home" data-i18n-key="nav.home">首页</a></li>
+                        <li><a href="#blog" data-i18n-key="nav.blog">博客</a></li>
+                        <li><a href="#portfolio" data-i18n-key="nav.portfolio">作品集</a></li>
+                        <li><a href="#contact" data-i18n-key="nav.contact">联系</a></li>
+                    </ul>
+                </nav>
+                
+                <!-- Controls -->
+                <div class="controls">
+                    <!-- Language Switcher -->
+                    <div class="language-switcher">
+                        <label class="switch-container" title="切换语言">
+                            <input type="checkbox" id="lang-switch" class="switch-input">
+                            <span class="switch-slider">
+                                <span class="switch-label left">中</span>
+                                <span class="switch-label right">EN</span>
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <!-- Theme Switcher -->
+                    <div class="theme-switcher">
+                        <label class="switch-container" title="切换主题">
+                            <input type="checkbox" id="theme-switch" class="switch-input">
+                            <span class="switch-slider theme-slider">
+                                <i class="fas fa-sun switch-icon left-icon"></i>
+                                <i class="fas fa-moon switch-icon right-icon"></i>
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button id="mobile-menu-btn" class="mobile-menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-background">
+                <canvas id="particles-canvas"></canvas>
+            </div>
+            <div class="container">
+                <div class="hero-content">
+                    <h2 class="hero-title" data-i18n-key="hero.title">欢迎来到我的数字世界</h2>
+                    <p class="hero-subtitle" data-i18n-key="hero.subtitle">探索技术、分享知识、创造价值</p>
+                    <div class="hero-cta">
+                        <button class="cta-btn primary" data-i18n-key="hero.explore">开始探索</button>
+                        <button class="cta-btn secondary" data-i18n-key="hero.contact">联系我</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Cards Section -->
+        <section id="blog" class="cards-section">
+            <div class="container">
+                <h3 class="section-title" data-i18n-key="cards.title">我的世界</h3>
+                <div class="cards-container">
+                    <!-- Tech Blog Card -->
+                    <div class="card-row" data-category="blog">
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fas fa-blog"></i>
+                            </div>
+                            <h4 class="card-title" data-i18n-key="cards.blog.title">技术博客</h4>
+                            <p class="card-description" data-i18n-key="cards.blog.description">分享技术心得与编程经验</p>
+                            <ul class="card-list">
+                                <li data-i18n-key="cards.blog.back.item1">前端性能优化实践</li>
+                                <li data-i18n-key="cards.blog.back.item2">JavaScript设计模式</li>
+                                <li data-i18n-key="cards.blog.back.item3">CSS Grid布局详解</li>
+                            </ul>
+                            <a href="#" class="card-link" data-i18n-key="cards.blog.back.link">查看更多</a>
+                        </div>
+                        <div class="card-image">
+                            <!-- 图片将由用户插入 -->
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <p>图片占位符</p>
+                                <!-- 图片元素空位 -->
+                                <img src="./img/csdn.png" alt="技术博客图片" class="card-img">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Open Source Card -->
+                    <div class="card-row reverse" data-category="projects" id="portfolio">
+
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h4 class="card-title" data-i18n-key="cards.opensource.title">开源项目</h4>
+                            <p class="card-description" data-i18n-key="cards.opensource.description">贡献开源社区，分享代码智慧</p>
+                            <ul class="card-list">
+                                <li><a href="https://github.com/nyx-1037/orderSystem" target="_blank" rel="noopener">七洛商城系统</a></li>
+                                <li><a href="https://github.com/nyx-1037/music-platform" target="_blank" rel="noopener">七洛音乐平台</a></li>
+                                <li><a href="https://nyx-1037.github.io" target="_blank" rel="noopener">个人博客</a></li>
+                            </ul>
+                            <a href="https://github.com/nyx-1037" class="card-link" data-i18n-key="cards.opensource.back.link" target="_blank" rel="noopener">访问GitHub</a>
+                        </div>
+
+                        <div class="card-image">
+                            <!-- 图片将由用户插入 -->
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <p>图片占位符</p>
+                                <!-- 图片元素空位 -->
+                                <img src="./img/github.png" alt="项目图片" class="card-img">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Portfolio Card -->
+                    <div class="card-row" data-category="portfolio">
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <h4 class="card-title" data-i18n-key="cards.portfolio.title">作品展示</h4>
+                            <p class="card-description" data-i18n-key="cards.portfolio.description">精选项目作品与设计案例</p>
+                            <ul class="card-list">
+                                <li><a href="http://114.55.60.186:8087" target="_blank" rel="noopener">七洛商城系统</a></li>
+                                <li><a href="http://114.55.60.186:8082/" target="_blank" rel="noopener">七洛音乐平台</a></li>
+                                <li><a href="https://blog.csdn.net/2302_80050680" target="_blank" rel="noopener">技术博客</a></li>
+                            </ul>
+                            <a href="https://github.com/nyx-1037?tab=repositories" class="card-link" data-i18n-key="cards.portfolio.back.link" target="_blank" rel="noopener">查看更多</a>
+                        </div>
+                        <div class="card-image">
+                            <!-- 图片将由用户插入 -->
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <p>图片占位符</p>
+                                <!-- 图片元素空位 -->
+                                <img src="./img/7l-music.png" alt="作品展示图片" class="card-img">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tools Card -->
+                    <div class="card-row reverse" data-category="tools">
+
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h4 class="card-title" data-i18n-key="cards.tools.title">实用工具</h4>
+                            <p class="card-description" data-i18n-key="cards.tools.description">开发工具与在线小应用</p>
+                            <ul class="card-list">
+                                <li data-i18n-key="cards.tools.back.item1">代码格式化</li>
+                                <li data-i18n-key="cards.tools.back.item2">颜色选择器</li>
+                                <li data-i18n-key="cards.tools.back.item3">JSON解析器</li>
+                            </ul>
+                            <a href="#" class="card-link" data-i18n-key="cards.tools.back.link">使用工具</a>
+                        </div>
+                        <div class="card-image">
+                            <!-- 图片将由用户插入 -->
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <p>图片占位符</p>
+                                <!-- 图片元素空位 -->
+                                <img src="./img/tool.png" alt="实用工具图片" class="card-img">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Learning Card -->
+                    <div class="card-row" data-category="learning">
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h4 class="card-title" data-i18n-key="cards.learning.title">学习笔记</h4>
+                            <p class="card-description" data-i18n-key="cards.learning.description">技术学习路径与知识总结</p>
+                            <ul class="card-list">
+                                <li data-i18n-key="cards.learning.back.item1">算法与数据结构</li>
+                                <li data-i18n-key="cards.learning.back.item2">系统设计</li>
+                                <li data-i18n-key="cards.learning.back.item3">新技术探索</li>
+                            </ul>
+                            <a href="https://nyx-1037.github.io/" class="card-link" data-i18n-key="cards.learning.back.link">查看笔记</a>
+                        </div>
+                        <div class="card-image">
+                            <!-- 图片将由用户插入 -->
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <p>图片占位符</p>
+                                <!-- 图片元素空位 -->
+                                <img src="./img/csdn.png" alt="学习笔记图片" class="card-img">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- About Card -->
+                    <div class="card-row reverse" data-category="about" id="contact">
+
+                        <div class="card-content">
+                            <div class="card-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="card-title" data-i18n-key="cards.about.title">关于我</h4>
+                            <p class="card-description" data-i18n-key="cards.about.description">个人介绍与联系方式</p>
+                            <ul class="card-list">
+                                <li data-i18n-key="cards.about.back.item1">邮箱联系</li>
+                                <li data-i18n-key="cards.about.back.item2">社交媒体</li>
+                                <li data-i18n-key="cards.about.back.item3">在线简历</li>
+                            </ul>
+                            <a href="#" class="card-link" data-i18n-key="cards.about.back.link" data-bs-toggle="modal" data-bs-target="#contactModal">联系我</a>
+                        </div>
+                        <div class="card-image">
+                            <!-- 图片将由用户插入 -->
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <p>图片占位符</p>
+                                <!-- 图片元素空位 -->
+                                <img src="./img/github.png" alt="关于我图片" class="card-img">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Stats -->
+                <div class="stats">
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span data-i18n-key="footer.uptime">运行时间</span>
+                        <span id="uptime-display">0天 0小时 0分钟</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span data-i18n-key="footer.visitors">访问量</span>
+                        <span id="visitor-count">-</span>
+                    </div>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="social-links">
+                    <a href="https://github.com/nyx-1037" title="GitHub" target="_blank" rel="noopener">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://gitee.com/nyx1037" title="Gitee" target="_blank" rel="noopener">
+                        <i class="fab fa-git-alt"></i>
+                    </a>
+                    <a href="https://blog.csdn.net/2302_80050680" title="CSDN博客" target="_blank" rel="noopener">
+                        <i class="fas fa-blog"></i>
+                    </a>
+                    <a href="https://nyx-1037.github.io" title="个人博客" target="_blank" rel="noopener">
+                        <i class="fas fa-home"></i>
+                    </a>
+                    <a href="mailto:nyx1037678078@gmail.com" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <button id="data-manager-btn" class="data-manager-btn" title="数据管理 (Ctrl+Shift+D)" aria-label="数据管理">
+                        <i class="fas fa-chart-bar"></i>
+                    </button>
+                </div>
+                
+                <!-- Copyright -->
+                <div class="copyright">
+                    <p>&copy; 2025 Mr.Nie. <span data-i18n-key="footer.rights">保留所有权利</span></p>
+                    <p><a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener" style="color: #616161;">赣ICP备2025065901号</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p data-i18n-key="loading.text">加载中...</p>
+        </div>
+    </div>
+    
+    <!-- Contact Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel" data-i18n-key="modal.contact.title">联系方式</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="contact-info">
+                        <h6 class="mb-3" data-i18n-key="modal.contact.social_links">社交链接</h6>
+                        <div class="social-links-modal">
+                            <a href="https://github.com/nyx-1037" class="btn btn-outline-dark mb-2 w-100" target="_blank" rel="noopener">
+                                <i class="fab fa-github me-2"></i>
+                                <span data-i18n-key="modal.contact.github">GitHub</span>
+                            </a>
+                            <a href="https://gitee.com/nyx1037" class="btn btn-outline-danger mb-2 w-100" target="_blank" rel="noopener">
+                                <i class="fab fa-git-alt me-2"></i>
+                                <span data-i18n-key="modal.contact.gitee">Gitee</span>
+                            </a>
+                            <a href="https://blog.csdn.net/2302_80050680" class="btn btn-outline-warning mb-2 w-100" target="_blank" rel="noopener">
+                                <i class="fas fa-blog me-2"></i>
+                                <span data-i18n-key="modal.contact.csdn">CSDN博客</span>
+                            </a>
+                            <a href="https://nyx-1037.github.io" class="btn btn-outline-info mb-2 w-100" target="_blank" rel="noopener">
+                                <i class="fas fa-home me-2"></i>
+                                <span data-i18n-key="modal.contact.blog">个人博客</span>
+                            </a>
+                            <a href="mailto:nyx1037678078@gmail.com" class="btn btn-outline-success mb-2 w-100">
+                                <i class="fas fa-envelope me-2"></i>
+                                <span data-i18n-key="modal.contact.email">发送邮件</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n-key="modal.contact.close">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <!-- jQuery CDN -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="js/i18n.js"></script>
+    <script src="js/theme.js"></script>
+
+    <script src="js/stats.js"></script>
+    <script src="js/dataManager.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
