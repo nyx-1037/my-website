@@ -35,7 +35,7 @@
     
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     
@@ -57,7 +57,7 @@
                 </div>
                 
                 <!-- Navigation -->
-                <nav class="nav">
+                <nav class="nav" id="main-nav">
                     <ul class="nav-list">
                         <li><a href="#home" data-i18n-key="nav.home">首页</a></li>
                         <li><a href="#blog" data-i18n-key="nav.blog">博客</a></li>
@@ -65,6 +65,9 @@
                         <li><a href="#contact" data-i18n-key="nav.contact">联系</a></li>
                     </ul>
                 </nav>
+                
+                <!-- Mobile Navigation Overlay -->
+                <div class="nav-overlay" id="nav-overlay"></div>
                 
                 <!-- Controls -->
                 <div class="controls">
@@ -91,7 +94,7 @@
                     </div>
                     
                     <!-- Mobile Menu Toggle -->
-                    <button id="mobile-menu-btn" class="mobile-menu-btn">
+                    <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="菜单" aria-expanded="false">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -113,8 +116,8 @@
                     <h2 class="hero-title" data-i18n-key="hero.title">欢迎来到我的数字世界</h2>
                     <p class="hero-subtitle" data-i18n-key="hero.subtitle">探索技术、分享知识、创造价值</p>
                     <div class="hero-cta">
-                        <button class="cta-btn primary" data-i18n-key="hero.explore">开始探索</button>
-                        <button class="cta-btn secondary" data-i18n-key="hero.contact">联系我</button>
+                        <a href="#portfolio" class="cta-btn primary" data-i18n-key="hero.explore">开始探索</a>
+                        <a href="#contact" class="cta-btn secondary" data-i18n-key="hero.contact">联系我</a>
                     </div>
                 </div>
             </div>
@@ -219,7 +222,7 @@
                                 <li data-i18n-key="cards.tools.back.item2">颜色选择器</li>
                                 <li data-i18n-key="cards.tools.back.item3">JSON解析器</li>
                             </ul>
-                            <a href="#" class="card-link" data-i18n-key="cards.tools.back.link">使用工具</a>
+                            <a href="http://114.55.60.186:48124" class="card-link" data-i18n-key="cards.tools.back.link">使用工具</a>
                         </div>
                         <div class="card-image">
                             <!-- 图片将由用户插入 -->
@@ -253,7 +256,7 @@
                                 <i class="fas fa-image"></i>
                                 <p>图片占位符</p>
                                 <!-- 图片元素空位 -->
-                                <img src="./img/csdn.png" alt="学习笔记图片" class="card-img">
+                                <img src="./img/study.png" alt="学习笔记图片" class="card-img">
                             </div>
                         </div>
                     </div>

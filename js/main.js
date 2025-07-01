@@ -267,20 +267,60 @@ class App {
         
         console.log(`📷 找到 ${cardImages.length} 张图片需要设置预览功能`);
         
-        // 为遮罩添加点击事件，点击遮罩时关闭预览
-        overlay.addEventListener('click', () => {
-            console.log('🔍 点击遮罩，关闭所有预览');
+        // 通用的图片重置函数，提高性能和可维护性
+        const resetImageStyles = (img) => {
+            if (!img) return;
+            
+            // 保存当前滚动位置
+            const currentScrollY = window.scrollY;
+            
+            // 批量重置样式，减少DOM操作
+            const stylesToReset = {
+                zIndex: '',
+                position: '',
+                top: '',
+                left: '',
+                transform: '',
+                maxWidth: '',
+                maxHeight: '',
+                objectFit: '',
+                display: '',
+                visibility: '',
+                opacity: ''
+            };
+            
+            Object.assign(img.style, stylesToReset);
+            
+            // 恢复滚动位置，防止页面跳转到顶部
+            window.scrollTo(0, currentScrollY);
+        };
+        
+        // 通用的关闭预览函数
+        const closeImagePreview = () => {
             const enlargedImg = document.querySelector('.card-img.enlarged');
             if (enlargedImg) {
                 enlargedImg.classList.remove('enlarged');
+                resetImageStyles(enlargedImg);
             }
+            
             // 恢复所有图片的可见性
             document.querySelectorAll('.card-img').forEach(img => {
                 img.style.visibility = 'visible';
             });
+            
             overlay.classList.remove('active');
             document.body.style.overflow = '';
-            document.body.classList.remove('image-preview-active'); // 恢复卡片hover效果
+            document.body.classList.remove('image-preview-active');
+            
+            // // 恢复滚动位置
+            // const savedPosition = parseInt(document.body.dataset.scrollPosition || '0');
+            // window.scrollTo(0, savedPosition);
+        };
+        
+        // 为遮罩添加点击事件，点击遮罩时关闭预览
+        overlay.addEventListener('click', () => {
+            console.log('🔍 点击遮罩，关闭所有预览');
+            closeImagePreview();
         });
         
         cardImages.forEach((img, index) => {
@@ -294,23 +334,30 @@ class App {
                     img.parentNode.replaceChild(newImg, img);
                 }
                 
-                // 添加点击事件处理图片预览
-                newImg.addEventListener('click', function handleImageClick(e) {
+                // 防抖处理，避免重复触发
+                let isProcessing = false;
+                
+                // 添加点击和触摸事件处理图片预览
+                const handleImagePreview = function(e) {
+                    e.preventDefault();
                     e.stopPropagation(); // 阻止事件冒泡
-                    console.log(`👆 图片 ${index + 1} 被点击`);
+                    
+                    // 防抖处理
+                    if (isProcessing) return;
+                    isProcessing = true;
+                    
+                    console.log(`👆 图片 ${index + 1} 被点击/触摸`);
                     
                     // 检查图片当前是否已经放大
                     if (newImg.classList.contains('enlarged')) {
                         // 如果已经放大，则缩小并隐藏遮罩
                         console.log('🔍 缩小图片并隐藏遮罩');
-                        newImg.classList.remove('enlarged');
-                        // 恢复所有图片的可见性
-                        document.querySelectorAll('.card-img').forEach(img => {
-                            img.style.visibility = 'visible';
-                        });
-                        overlay.classList.remove('active');
-                        document.body.style.overflow = '';
-                        document.body.classList.remove('image-preview-active'); // 恢复卡片hover效果
+                        closeImagePreview();
+                        
+                        // 重置防抖标志
+                        setTimeout(() => {
+                            isProcessing = false;
+                        }, 300);
                     } else {
                         // 如果未放大，则先移除所有图片的放大状态
                         document.querySelectorAll('.card-img.enlarged').forEach(img => {
@@ -331,12 +378,27 @@ class App {
                         
                         // 延迟一帧添加放大状态，确保DOM更新顺序正确
                         requestAnimationFrame(() => {
-                            // 添加放大状态，确保放大的图片在遮罩之上
+                            // 添加放大状态，CSS样式会自动应用
                             newImg.classList.add('enlarged');
+                            
                             console.log('🔍 放大图片并显示遮罩');
+                            
+                            // 重置防抖标志
+                            setTimeout(() => {
+                                isProcessing = false;
+                            }, 300);
                         });
                     }
-                });
+                };
+                
+                newImg.addEventListener('click', handleImagePreview);
+                // 使用passive事件监听器优化触摸性能
+                newImg.addEventListener('touchend', handleImagePreview, { passive: false });
+                
+                // 防止触摸时的意外滚动
+                newImg.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                }, { passive: false });
             }
         });
         
@@ -344,17 +406,7 @@ class App {
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 console.log('🔍 按下ESC键，关闭所有预览');
-                const enlargedImg = document.querySelector('.card-img.enlarged');
-                if (enlargedImg) {
-                    enlargedImg.classList.remove('enlarged');
-                }
-                // 恢复所有图片的可见性
-                document.querySelectorAll('.card-img').forEach(img => {
-                    img.style.visibility = 'visible';
-                });
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-                document.body.classList.remove('image-preview-active'); // 恢复卡片hover效果
+                closeImagePreview();
             }
         });
     }
@@ -514,32 +566,80 @@ class App {
     }
     
     setupMobileNavigation() {
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const navigation = document.querySelector('.nav');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navigation = document.getElementById('main-nav');
         
-        if (mobileMenuToggle && navigation) {
-            mobileMenuToggle.addEventListener('click', () => {
+        if (mobileMenuBtn && navigation) {
+            mobileMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const isOpen = navigation.classList.contains('nav-open');
                 
                 if (isOpen) {
-                    navigation.classList.remove('nav-open');
-                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                    document.body.classList.remove('nav-open');
+                    this.closeMobileMenu();
                 } else {
-                    navigation.classList.add('nav-open');
-                    mobileMenuToggle.setAttribute('aria-expanded', 'true');
-                    document.body.classList.add('nav-open');
+                    this.openMobileMenu();
                 }
+            });
+            
+            // Close mobile menu when clicking navigation links
+            const navLinks = navigation.querySelectorAll('.nav-list a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    this.closeMobileMenu();
+                });
             });
             
             // Close mobile menu when clicking outside
             document.addEventListener('click', (e) => {
-                if (!navigation.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-                    navigation.classList.remove('nav-open');
-                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                    document.body.classList.remove('nav-open');
+                if (!navigation.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    this.closeMobileMenu();
                 }
             });
+            
+            // Close mobile menu when clicking overlay
+            const overlay = document.getElementById('nav-overlay');
+            if (overlay) {
+                overlay.addEventListener('click', () => {
+                    this.closeMobileMenu();
+                });
+            }
+            
+            // Close mobile menu on window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    this.closeMobileMenu();
+                }
+            });
+        }
+    }
+    
+    openMobileMenu() {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navigation = document.getElementById('main-nav');
+        const overlay = document.getElementById('nav-overlay');
+        
+        if (mobileMenuBtn && navigation && overlay) {
+            navigation.classList.add('nav-open');
+            mobileMenuBtn.classList.add('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            overlay.classList.add('active');
+            document.body.classList.add('nav-open');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+    
+    closeMobileMenu() {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const navigation = document.getElementById('main-nav');
+        const overlay = document.getElementById('nav-overlay');
+        
+        if (mobileMenuBtn && navigation && overlay) {
+            navigation.classList.remove('nav-open');
+            mobileMenuBtn.classList.remove('active');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            overlay.classList.remove('active');
+            document.body.classList.remove('nav-open');
+            document.body.style.overflow = '';
         }
     }
     
@@ -548,14 +648,12 @@ class App {
         document.addEventListener('keydown', (e) => {
             // Escape key closes mobile menu
             if (e.key === 'Escape') {
-                const navigation = document.querySelector('.nav');
-                const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+                const navigation = document.getElementById('main-nav');
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
                 
                 if (navigation?.classList.contains('nav-open')) {
-                    navigation.classList.remove('nav-open');
-                    mobileMenuToggle?.setAttribute('aria-expanded', 'false');
-                    document.body.classList.remove('nav-open');
-                    mobileMenuToggle?.focus();
+                    this.closeMobileMenu();
+                    mobileMenuBtn?.focus();
                 }
             }
             
@@ -737,6 +835,14 @@ class App {
                     enlargedImg.classList.remove('enlarged');
                     overlay.classList.remove('active');
                     document.body.style.overflow = '';
+                    document.body.classList.remove('image-preview-active');
+                    
+                    // 重置图片样式
+                    resetImageStyles(enlargedImg);
+                    
+                    // 恢复滚动位置
+                    const savedPosition = parseInt(document.body.dataset.scrollPosition || '0');
+                    window.scrollTo(0, savedPosition);
                 }
             });
             overlay.hasClickListener = true;
@@ -748,25 +854,68 @@ class App {
             img.parentNode.replaceChild(newImg, img);
         }
         
-        // 添加点击事件
-        newImg.addEventListener('click', (e) => {
+        // 添加点击和触摸事件
+        const handleImageInteraction = (e) => {
+            e.preventDefault();
             e.stopPropagation(); // 阻止事件冒泡
-            console.log('👆 已加载图片被点击:', newImg.src);
+            console.log('👆 图片被点击/触摸:', newImg.src);
             
-            // 切换放大状态
+            // 先移除所有其他放大的图片
+            document.querySelectorAll('.card-img.enlarged').forEach(img => {
+                if (img !== newImg) {
+                    img.classList.remove('enlarged');
+                }
+            });
+            
+            // 切换当前图片的放大状态
             newImg.classList.toggle('enlarged');
+            
+            // 保存当前滚动位置
+            const scrollPosition = window.scrollY;
             
             // 显示/隐藏遮罩
             if (newImg.classList.contains('enlarged')) {
                 console.log('🔍 放大图片并显示遮罩');
                 overlay.classList.add('active');
+                
+                // 保存滚动位置到body的data属性
+                document.body.dataset.scrollPosition = scrollPosition;
+                
                 document.body.style.overflow = 'hidden'; // 防止背景滚动
+                document.body.classList.add('image-preview-active');
+                
+                // 确保图片在最顶层
+                newImg.style.zIndex = '10000000';
+                newImg.style.position = 'fixed';
+                newImg.style.top = '50%';
+                newImg.style.left = '50%';
+                newImg.style.transform = 'translate(-50%, -50%)';
+                newImg.style.maxWidth = 'calc(100vw - 40px)';
+                newImg.style.maxHeight = 'calc(100vh - 40px)';
+                newImg.style.objectFit = 'contain';
+                newImg.style.display = 'block';
+                newImg.style.visibility = 'visible';
+                newImg.style.opacity = '1';
             } else {
                 console.log('🔍 缩小图片并隐藏遮罩');
                 overlay.classList.remove('active');
                 document.body.style.overflow = '';
+                document.body.classList.remove('image-preview-active');
+                
+                // 重置图片样式
+                resetImageStyles(newImg);
+                
+                // 恢复滚动位置
+                const savedPosition = parseInt(document.body.dataset.scrollPosition || '0');
+                window.scrollTo(0, savedPosition);
             }
-        });
+        };
+        
+        // 添加点击事件
+        newImg.addEventListener('click', handleImageInteraction);
+        
+        // 添加触摸事件支持移动端
+        newImg.addEventListener('touchend', handleImageInteraction);
     }
     
     setupFocusManagement() {
